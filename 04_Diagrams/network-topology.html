@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bkre8tive Homelab — Network Topology</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+<!--
+╔══════════════════════════════════════════════════════╗
+║  HOW TO UPDATE THIS DIAGRAM                          ║
+║  Only edit the DATA object below.                    ║
+║  Never touch anything past the closing }; of DATA.  ║
+║                                                      ║
+║  Add device  → add entry to correct vlan array      ║
+║  Add VLAN    → add object to vlans array             ║
+║  Add cloud   → add entry to cloud array              ║
+║  Change icon → replace the emoji in icon field      ║
+║  Change IP   → edit ip field on the node            ║
+╚══════════════════════════════════════════════════════╝
+-->
+<script>
+const DATA = {
+  site: {
+    name: "bkre8tive Homelab",
+    subtitle: "Network Topology",
+    updated: "2026-04-13",
+    status: "All systems operational"
+  },
+
+  /* Internet + Modem are always top two — do not reorder */
+  internet: { id:"n-internet", icon:"🌐", name:"Internet", ip:"Spectrum — 1 Gbps" },
+  modem:    { id:"n-modem",    icon:"📡", name:"Spectrum Modem", ip:"WAN Gateway", tag:"WAN Gateway" },
+
+  /* Core row — edit freely */
+  core: [
+    { id:"n-fw",  icon:"🛡️", name:"OPNsense",       ip:"10.10.10.1",    tag:"Firewall — Router — VLAN",    color:"#3B82F6", glow:true  },
+    { id:"n-sw",  icon:"🔀", name:"Unifi Switch",   ip:"192.168.1.51",  tag:"USW-16-PoE — Managed",        color:"#3B82F6", glow:false },
+    { id:"n-ap",  icon:"📶", name:"Unifi AP",       ip:"192.168.1.53",  tag:"Wireless Access Point",       color:"#10B981", glow:false },
+    { id:"n-rpi", icon:"🍓", name:"Raspberry Pi 5", ip:"192.168.1.50",  tag:"Unifi Controller — Twingate", color:"#3B82F6", glow:false }
+  ],
+
+  /* VLAN segments */
+  vlans: [
+    {
+      id:"v10", name:"Mgmt Infrastructure", tag:"VLAN 10",
+      subnet:"10.10.10.0/24", color:"#3B82F6",
+      bg:"rgba(59,130,246,0.08)", border:"rgba(59,130,246,0.2)", pipeSpeed:1.5,
+      devices:[
+        { icon:"🖥️", name:"prox-main",    ip:"10.10.10.2 · Ryzen AI 9 HX 370",   pill:"PHYS",   pc:"pill-phys"   },
+        { icon:"🖥️", name:"prox-node",    ip:"10.10.10.3 · Intel i9-13900HK",     pill:"PHYS",   pc:"pill-phys"   },
+        { icon:"🎮", name:"prox-alien",   ip:"10.10.10.4 · i9-12900H + RTX 3080", pill:"GPU",    pc:"pill-gpu"    },
+        { icon:"💾", name:"PBS",          ip:"10.10.10.50 · Proxmox Backup",       pill:"VM",     pc:"pill-vm"     },
+        { icon:"🔄", name:"Traefik Proxy",ip:"10.10.10.6 · Reverse Proxy",        pill:"DOCKER", pc:"pill-docker" },
+        { icon:"🗄️", name:"HOME-NAS",     ip:"10.10.10.13 · Synology DS923+",     pill:"NAS",    pc:"pill-nas"    }
+      ]
+    },
+    {
+      id:"v20", name:"Home Network", tag:"VLAN 20",
+      subnet:"10.10.20.0/24", color:"#10B981",
+      bg:"rgba(16,185,129,0.08)", border:"rgba(16,185,129,0.2)", pipeSpeed:2.0,
+      devices:[
+        { icon:"🪟", name:"Amazon-PC",        ip:"10.10.20.250 · Win + NordVPN",   pill:"VM",   pc:"pill-vm"   },
+        { icon:"🪟", name:"Win-PC11",         ip:"10.10.20.x · Power BI",          pill:"VM",   pc:"pill-vm"   },
+        { icon:"🎬", name:"Jellyfin",         ip:"10.10.20.2 · Media Server",      pill:"SVC",  pc:"pill-svc"  },
+        { icon:"📱", name:"Personal Devices", ip:"DHCP · Phones, tablets, Mac",    pill:"WIFI", pc:"pill-phys" }
+      ]
+    },
+    {
+      id:"v30", name:"Server Network", tag:"VLAN 30",
+      subnet:"10.10.30.0/24", color:"#8B5CF6",
+      bg:"rgba(139,92,246,0.08)", border:"rgba(139,92,246,0.2)", pipeSpeed:3.5,
+      devices:[
+        { icon:"⚙️", name:"Future Services", ip:"Not yet provisioned", pill:"TBD", pc:"pill-tbd", dim:true }
+      ]
+    },
+    {
+      id:"v40", name:"Guest Network", tag:"VLAN 40",
+      subnet:"10.10.40.0/24", color:"#F59E0B",
+      bg:"rgba(245,158,11,0.08)", border:"rgba(245,158,11,0.2)", pipeSpeed:3.0,
+      devices:[
+        { icon:"👥", name:"Guest Devices", ip:"DHCP · Internet only · Isolated",
+          pill:"WIFI", pillColor:"rgba(245,158,11,0.12)", pillText:"#FCD34D" }
+      ]
+    },
+    {
+      id:"v50", name:"IoT Network", tag:"VLAN 50",
+      subnet:"10.10.50.0/24", color:"#EF4444",
+      bg:"rgba(239,68,68,0.08)", border:"rgba(239,68,68,0.2)", pipeSpeed:3.5,
+      devices:[
+        { icon:"🏠", name:"Smart Home Devices", ip:"DHCP · Isolated segment",
+          pill:"IoT", pillColor:"rgba(239,68,68,0.12)", pillText:"#FCA5A5" }
+      ]
+    },
+    {
+      id:"v60", name:"Development", tag:"VLAN 60",
+      subnet:"10.10.60.0/24", color:"#EC4899",
+      bg:"rgba(236,72,153,0.08)", border:"rgba(236,72,153,0.2)", pipeSpeed:2.5,
+      devices:[
+        { icon:"💻", name:"WIN-SON-PC",   ip:"10.10.60.50 · Dev workstation (JJ)", pill:"VM",  pc:"pill-vm" },
+        { icon:"🤖", name:"ai-agent-lab", ip:"In progress · Docker",
+          pill:"WIP", pillColor:"rgba(236,72,153,0.12)", pillText:"#F9A8D4", dim:true }
+      ]
+    }
+  ],
+
+  cloud: [
+    { id:"c-azure",    icon:"☁️",  name:"Azure",        tag:"AZ-104 Lab · P2"  },
+    { id:"c-twingate", icon:"🔒",  name:"Twingate",     tag:"Zero-Trust VPN"   },
+    { id:"c-gcp",      icon:"🌩️",  name:"Google Cloud", tag:"RustDesk Relay"   },
+    { id:"c-intune",   icon:"🖥️",  name:"Intune",       tag:"MDM · Lab"        }
+  ]
+}; // END DATA — do not edit below this line
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070B14;--bg2:#0D1524;--bg3:#111827;
+  --border:rgba(255,255,255,0.07);--text:#E2E8F4;--muted:#5A6A8A;--accent:#3B82F6;
+}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(59,130,246,0.035) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(59,130,246,0.035) 1px,transparent 1px);
+  background-size:52px 52px}
+.page{position:relative;z-index:1;padding:32px 40px 48px;min-width:1000px}
+
+/* ── Header ───────────────────────────────────────────────────────── */
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.h-brand{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;letter-spacing:-1px;color:var(--text)}
+.h-brand span{color:var(--accent)}
+.h-sub{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);margin-top:5px}
+.dot-live{width:7px;height:7px;border-radius:50%;background:#10B981;box-shadow:0 0 8px #10B981;animation:blink 2s infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.h-badges{display:flex;gap:8px;align-items:center;padding-top:4px}
+.badge{font-size:9px;padding:4px 12px;border-radius:20px;border:1px solid rgba(59,130,246,0.35);background:rgba(59,130,246,0.08);color:var(--accent)}
+
+/* ── Legend ───────────────────────────────────────────────────────── */
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.leg{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border);padding:5px 12px;border-radius:6px;font-size:9px;color:var(--muted)}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* ── SVG canvas ───────────────────────────────────────────────────── */
+#svg-canvas{position:absolute;top:0;left:0;pointer-events:none;z-index:0;overflow:visible}
+.diagram-wrap{position:relative}
+
+/* ── Layout helpers ───────────────────────────────────────────────── */
+.center{display:flex;justify-content:center}
+.gap-lg{height:60px}
+.gap-md{height:36px}
+.gap-sm{height:20px}
+.divider{display:flex;align-items:center;gap:12px;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;position:relative;z-index:1}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── Node cards ───────────────────────────────────────────────────── */
+.node{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px 20px;text-align:center;position:relative;transition:transform .25s,box-shadow .25s,border-color .25s;cursor:default;z-index:1}
+.node:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.15);box-shadow:0 12px 40px rgba(0,0,0,.6)}
+.node-bar{position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+.node-ico{font-size:26px;line-height:1;margin-bottom:8px}
+.node-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);white-space:nowrap}
+.node-ip{font-size:9px;color:var(--muted);margin-top:3px}
+.node-tag{font-size:8px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+
+/* Internet node special style */
+.node-internet{background:radial-gradient(ellipse at center,rgba(59,130,246,0.08),transparent 72%);border:1px dashed rgba(59,130,246,0.4);border-radius:60px;min-width:200px;padding:18px 32px}
+/* Firewall glow */
+.node-glow{box-shadow:0 0 0 1px rgba(59,130,246,0.3),0 0 32px rgba(59,130,246,0.14)}
+
+/* Core row */
+.core-row{display:flex;justify-content:center;align-items:center;gap:16px;position:relative;z-index:1}
+.core-connector{width:40px;height:2px;background:linear-gradient(to right,rgba(255,255,255,0.08),rgba(255,255,255,0.08));position:relative;flex-shrink:0}
+.core-connector::before,.core-connector::after{content:'';position:absolute;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.2)}
+.core-connector::before{left:0}
+.core-connector::after{right:0}
+
+/* ── VLAN grid ────────────────────────────────────────────────────── */
+.vlan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;z-index:1}
+.vlan-card{border-radius:12px;border:1px solid var(--border);background:var(--bg2);overflow:hidden}
+.vlan-head{display:flex;align-items:center;gap:7px;padding:10px 14px;font-size:11px;font-weight:700;font-family:'Syne',sans-serif}
+.vlan-head .vtag{font-family:'JetBrains Mono';font-size:9px;opacity:.6;margin-left:2px}
+.vlan-head .vsub{font-family:'JetBrains Mono';font-size:9px;opacity:.4;margin-left:auto}
+.vlan-body{padding:10px 12px 14px;display:flex;flex-direction:column;gap:6px}
+.dev{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:7px 10px;transition:border-color .2s}
+.dev:hover{border-color:rgba(255,255,255,0.13)}
+.dev-ico{font-size:14px;width:20px;text-align:center;flex-shrink:0}
+.dev-info{flex:1;min-width:0}
+.dev-name{font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dev-ip{font-size:8px;color:var(--muted);margin-top:1px}
+.dev-pill{font-size:7.5px;padding:2px 7px;border-radius:4px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.pill-vm    {background:rgba(139,92,246,0.15);color:#A78BFA}
+.pill-phys  {background:rgba(59,130,246,0.15);color:#60A5FA}
+.pill-nas   {background:rgba(16,185,129,0.15);color:#34D399}
+.pill-svc   {background:rgba(245,158,11,0.15);color:#FCD34D}
+.pill-docker{background:rgba(14,165,233,0.15);color:#38BDF8}
+.pill-tbd   {background:rgba(255,255,255,0.05);color:var(--muted)}
+.pill-gpu   {background:rgba(236,72,153,0.15);color:#F9A8D4}
+
+/* ── Cloud ────────────────────────────────────────────────────────── */
+.cloud-row{display:flex;justify-content:center;gap:14px;position:relative;z-index:1}
+.cloud-node{background:var(--bg2);border:1px dashed rgba(100,116,139,0.3);border-radius:12px;padding:12px 22px;text-align:center;min-width:120px;transition:border-color .2s}
+.cloud-node:hover{border-color:rgba(100,116,139,0.6)}
+.cloud-node .node-ico{font-size:22px}
+.cloud-node .node-name{font-size:11px;color:var(--muted);margin-top:4px;font-family:'Syne',sans-serif;font-weight:700}
+.cloud-node .node-tag{font-size:8px;color:var(--muted);margin-top:2px}
+
+/* ── Footer ───────────────────────────────────────────────────────── */
+.footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--border);text-align:center;font-size:9px;color:var(--muted)}
+.footer span{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header" id="hdr"></div>
+
+  <!-- Legend -->
+  <div class="legend" id="leg"></div>
+
+  <!-- Diagram -->
+  <div class="diagram-wrap" id="dw">
+    <svg id="svg-canvas" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- Internet -->
+    <div class="center" style="position:relative;z-index:1">
+      <div id="n-internet"></div>
+    </div>
+
+    <div class="gap-lg"></div>
+    <div class="divider">Core Infrastructure — OPNsense — Unifi</div>
+    <div class="gap-md"></div>
+
+    <!-- Modem (centered, above core row) -->
+    <div class="center" style="position:relative;z-index:1;margin-bottom:16px">
+      <div id="n-modem"></div>
+    </div>
+
+    <div style="height:16px"></div>
+
+    <!-- Core row -->
+    <div class="core-row" id="core-row"></div>
+
+    <div class="gap-lg"></div>
+    <div class="divider">VLAN Segments</div>
+    <div class="gap-md"></div>
+
+    <!-- VLAN grid -->
+    <div class="vlan-grid" id="vlan-grid"></div>
+
+    <div class="gap-lg"></div>
+    <div class="divider">Cloud &amp; Remote Access</div>
+    <div class="gap-md"></div>
+
+    <!-- Cloud -->
+    <div class="cloud-row" id="cloud-row"></div>
+
+  </div><!-- /diagram-wrap -->
+
+  <div class="footer" id="ftr"></div>
+</div><!-- /page -->
+
+<script>
+// ── Render from DATA ──────────────────────────────────────────────────────────
+
+// Header
+document.getElementById('hdr').innerHTML = `
+  <div>
+    <div class="h-brand">${DATA.site.name.replace('bkre8tive','bkre8<span>tive</span>')}</div>
+    <div class="h-sub">
+      <div class="dot-live"></div>
+      ${DATA.site.subtitle} — Last updated ${DATA.site.updated}
+    </div>
+  </div>
+  <div class="h-badges">
+    <span class="badge">OPNsense</span>
+    <span class="badge">Proxmox Cluster</span>
+    <span class="badge">${DATA.vlans.length} VLANs</span>
+  </div>`;
+
+// Legend
+document.getElementById('leg').innerHTML =
+  DATA.vlans.map(v=>`
+    <div class="leg">
+      <div class="leg-dot" style="background:${v.color}"></div>
+      ${v.tag} — ${v.name}
+    </div>`).join('') + `
+  <div class="leg" style="margin-left:auto">
+    <svg width="28" height="8" style="flex-shrink:0">
+      <line x1="0" y1="4" x2="28" y2="4" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="4 5"/>
+    </svg>
+    Animated Data Flow
+  </div>`;
+
+// Internet node
+document.getElementById('n-internet').outerHTML = `
+  <div class="node node-internet" id="n-internet">
+    <div class="node-ico">${DATA.internet.icon}</div>
+    <div class="node-name">${DATA.internet.name}</div>
+    <div class="node-ip">${DATA.internet.ip}</div>
+  </div>`;
+
+// Modem node
+document.getElementById('n-modem').outerHTML = `
+  <div class="node" id="n-modem" style="min-width:200px">
+    <div class="node-bar" style="background:#64748B"></div>
+    <div class="node-ico">${DATA.modem.icon}</div>
+    <div class="node-name">${DATA.modem.name}</div>
+    <div class="node-ip">${DATA.modem.ip}</div>
+    <div class="node-tag">${DATA.modem.tag}</div>
+  </div>`;
+
+// Core row — nodes separated by connector dots
+const coreHTML = DATA.core.map((n,i)=>{
+  const glowCls = n.glow ? ' node-glow':'';
+  const bar = n.color ? `<div class="node-bar" style="background:${n.color}"></div>`:'';
+  const conn = i < DATA.core.length-1
+    ? `<div class="core-connector"></div>` : '';
+  return `<div class="node${glowCls}" id="${n.id}">
+      ${bar}
+      <div class="node-ico">${n.icon}</div>
+      <div class="node-name">${n.name}</div>
+      <div class="node-ip">${n.ip}</div>
+      <div class="node-tag">${n.tag}</div>
+    </div>${conn}`;
+}).join('');
+document.getElementById('core-row').innerHTML = coreHTML;
+
+// VLAN grid
+document.getElementById('vlan-grid').innerHTML = DATA.vlans.map(v=>{
+  const devs = v.devices.map(d=>{
+    const dimSt = d.dim ? 'opacity:.45;border-style:dashed':'';
+    const pill = d.pc
+      ? `<span class="dev-pill ${d.pc}">${d.pill}</span>`
+      : `<span class="dev-pill" style="background:${d.pillColor};color:${d.pillText}">${d.pill}</span>`;
+    return `<div class="dev" style="${dimSt}">
+        <div class="dev-ico">${d.icon}</div>
+        <div class="dev-info">
+          <div class="dev-name">${d.name}</div>
+          <div class="dev-ip">${d.ip}</div>
+        </div>${pill}
+      </div>`;
+  }).join('');
+  return `<div class="vlan-card" id="${v.id}">
+      <div class="vlan-head" style="background:${v.bg};color:${v.color};border-bottom:1px solid ${v.border}">
+        <span>●</span>${v.name}<span class="vtag">${v.tag}</span><span class="vsub">${v.subnet}</span>
+      </div>
+      <div class="vlan-body">${devs}</div>
+    </div>`;
+}).join('');
+
+// Cloud row
+document.getElementById('cloud-row').innerHTML = DATA.cloud.map(c=>`
+  <div class="cloud-node" id="${c.id}">
+    <div class="node-ico">${c.icon}</div>
+    <div class="node-name">${c.name}</div>
+    <div class="node-tag">${c.tag}</div>
+  </div>`).join('');
+
+// Footer
+document.getElementById('ftr').innerHTML =
+  `Save to: <span>01_Homelab/04_Diagrams/network-topology.html</span>
+   &nbsp;·&nbsp; ${DATA.site.updated} &nbsp;·&nbsp; ${DATA.site.name}`;
+
+// ── Animated SVG pipes ────────────────────────────────────────────────────────
+const svg = document.getElementById('svg-canvas');
+const dw  = document.getElementById('dw');
+
+function rc(id){
+  const el=document.getElementById(id); if(!el) return null;
+  const wr=dw.getBoundingClientRect(), er=el.getBoundingClientRect();
+  return {
+    x:  er.left-wr.left+er.width/2,
+    y:  er.top -wr.top +er.height/2,
+    t:  er.top -wr.top,
+    b:  er.top -wr.top +er.height,
+    l:  er.left-wr.left,
+    r:  er.left-wr.left+er.width
+  };
+}
+
+let pid=0;
+function pipe(x1,y1,x2,y2,col,dur,straight){
+  const id='pp'+(pid++);
+  const mx=(x1+x2)/2;
+  const d = straight
+    ? `M${x1},${y1} L${x2},${y2}`
+    : `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`;
+
+  const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+
+  // glow backing
+  const gp=document.createElementNS('http://www.w3.org/2000/svg','path');
+  gp.setAttribute('d',d); gp.setAttribute('fill','none');
+  gp.setAttribute('stroke',col); gp.setAttribute('stroke-width','4');
+  gp.setAttribute('opacity','0.07'); gp.setAttribute('filter','url(#glow)');
+
+  // animated dash
+  const dp=document.createElementNS('http://www.w3.org/2000/svg','path');
+  dp.setAttribute('d',d); dp.setAttribute('id',id);
+  dp.setAttribute('fill','none'); dp.setAttribute('stroke',col);
+  dp.setAttribute('stroke-width','1.5'); dp.setAttribute('stroke-dasharray','5 13');
+  dp.setAttribute('opacity','0.6');
+  const a=document.createElementNS('http://www.w3.org/2000/svg','animate');
+  a.setAttribute('attributeName','stroke-dashoffset');
+  a.setAttribute('from','180'); a.setAttribute('to','0');
+  a.setAttribute('dur',dur+'s'); a.setAttribute('repeatCount','indefinite');
+  dp.appendChild(a);
+
+  // travelling packet
+  const pk=document.createElementNS('http://www.w3.org/2000/svg','circle');
+  pk.setAttribute('r','3'); pk.setAttribute('fill',col);
+  pk.setAttribute('filter','url(#glow)');
+  const am=document.createElementNS('http://www.w3.org/2000/svg','animateMotion');
+  am.setAttribute('dur',dur+'s'); am.setAttribute('repeatCount','indefinite');
+  const mp=document.createElementNS('http://www.w3.org/2000/svg','mpath');
+  mp.setAttributeNS('http://www.w3.org/1999/xlink','xlink:href','#'+id);
+  am.appendChild(mp);
+  const af=document.createElementNS('http://www.w3.org/2000/svg','animate');
+  af.setAttribute('attributeName','opacity');
+  af.setAttribute('values','0;0;1;1;0');
+  af.setAttribute('keyTimes','0;0.05;0.1;0.9;1');
+  af.setAttribute('dur',dur+'s'); af.setAttribute('repeatCount','indefinite');
+  pk.appendChild(am); pk.appendChild(af);
+
+  g.appendChild(gp); g.appendChild(dp); g.appendChild(pk);
+  svg.appendChild(g);
+}
+
+function draw(){
+  while(svg.children.length>1) svg.removeChild(svg.lastChild);
+
+  const I  = rc('n-internet');
+  const M  = rc('n-modem');
+  const FW = rc('n-fw');
+  const SW = rc('n-sw');
+  const AP = rc('n-ap');
+  const RP = rc('n-rpi');
+  if(!I||!M||!FW) return;
+
+  // Internet → Modem (straight vertical)
+  pipe(I.x, I.b, M.x, M.t, '#3B82F6', 1.3, true);
+  // Modem → OPNsense (straight vertical)
+  pipe(M.x, M.b, FW.x, FW.t, '#3B82F6', 1.5, true);
+
+  // OPNsense → Switch (horizontal)
+  pipe(FW.r, FW.y, SW.l, SW.y, '#3B82F6', 1.8, false);
+  // Switch → AP
+  pipe(SW.r, SW.y, AP.l, AP.y, '#10B981', 2.2, false);
+  // AP → RPi
+  pipe(AP.r, AP.y, RP.l, RP.y, '#3B82F6', 2.8, false);
+
+  // OPNsense/Switch → VLANs (from DATA)
+  DATA.vlans.forEach(v=>{
+    const vn=rc(v.id); if(!vn) return;
+    // pick source based on vlan
+    const src = ['v10','v30'].includes(v.id) ? FW : SW;
+    const sn  = rc(src===FW?'n-fw':'n-sw');
+    if(!sn) return;
+    pipe(sn.x, sn.b, vn.x, vn.t, v.color, v.pipeSpeed, false);
+  });
+
+  // OPNsense → Cloud (from DATA)
+  const offsets=[-75,-25,25,75];
+  DATA.cloud.forEach((c,i)=>{
+    const cn=rc(c.id); if(!cn) return;
+    pipe(FW.x+(offsets[i]||0), FW.b, cn.x, cn.t, '#64748B', 4+i*0.4, false);
+  });
+}
+
+function resize(){
+  const r=dw.getBoundingClientRect();
+  svg.setAttribute('width',r.width);
+  svg.setAttribute('height',r.height);
+  svg.style.cssText=`width:${r.width}px;height:${r.height}px`;
+}
+
+function init(){ resize(); draw(); }
+setTimeout(init,300);
+window.addEventListener('resize',()=>setTimeout(init,100));
+</script>
+</body>
+</html>
