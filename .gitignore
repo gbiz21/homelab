@@ -1,18 +1,18 @@
 # Private/work folders — not published
-01_Projects/
-02_Scripts/
-03_Exports/
-05_Configs/
-99_Archive/
+projects/
+scripts/
+exports/
+configs/
+archive/
 
-# 00_Docs: only publish markdown docs referenced in README
-00_Docs/*
-!00_Docs/homelab-inventory.md
-!00_Docs/homelab-naming-convention.md
+# docs: only publish markdown docs referenced in README
+docs/*
+!docs/homelab-inventory.md
+!docs/homelab-naming-convention.md
 
-# 04_Diagrams: only publish the network topology HTML
-04_Diagrams/*
-!04_Diagrams/network-topology.html
+# diagrams: only publish the network topology HTML
+diagrams/*
+!diagrams/network-topology.html
 
 # Secrets & system noise
 *.env
