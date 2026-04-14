@@ -4,7 +4,7 @@ Platform engineering homelab — 3-node Proxmox cluster, OPNsense firewall,
 6 VLANs, Docker, Traefik v3, and AI agent integration.
 
 ## 🌐 Network Topology
-[View animated network diagram →](https://gbeazer.github.io/homelab/04_Diagrams/network-topology.html)
+[View animated network diagram →](https://gbiz21.github.io/homelab/04_Diagrams/network-topology.html)
 
 ## 🏗️ Infrastructure
 - 3-node Proxmox cluster (prox-main · prox-node · prox-alien)
