@@ -7,12 +7,13 @@ archive/
 
 # docs: only publish markdown docs referenced in README
 docs/*
-!docs/homelab-inventory.md
+!docs/homelab-inventory-public.md
 !docs/homelab-naming-convention.md
 
 # diagrams: only publish the network topology HTML
 diagrams/*
 !diagrams/network-topology.html
+!diagrams/icons/
 
 # Secrets & system noise
 *.env

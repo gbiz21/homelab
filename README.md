@@ -19,4 +19,4 @@ Proxmox · OPNsense · Docker · Traefik · Synology NAS ·
 Azure · Twingate · Bitwarden · Cloudflare
 
 ## 📄 Docs
-- [Inventory](docs/homelab-inventory.md)
+- [Inventory](docs/homelab-inventory-public.md)
