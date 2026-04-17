@@ -52,7 +52,8 @@ const DATA = {
         { icon:"🎮", name:"prox-alien",   ip:"10.10.10.4 · i9-12900H + RTX 3080", pill:"GPU",    pc:"pill-gpu"    },
         { icon:"💾", name:"PBS",          ip:"10.10.10.50 · Proxmox Backup",       pill:"VM",     pc:"pill-vm"     },
         { icon:"🔄", name:"Traefik Proxy",ip:"10.10.10.6 · Reverse Proxy",        pill:"DOCKER", pc:"pill-docker" },
-        { icon:"🗄️", name:"HOME-NAS",     ip:"10.10.10.13 · Synology DS923+",     pill:"NAS",    pc:"pill-nas"    }
+        { icon:"🗄️", name:"HOME-NAS",     ip:"10.10.10.13 · Synology DS923+",     pill:"NAS",    pc:"pill-nas"    },
+        { icon:"🖥️", name:"mgmt-server",  ip:"10.10.10.71 · Lab platform + labctl", pill:"VM",   pc:"pill-vm"     }
       ]
     },
     {
@@ -60,8 +61,8 @@ const DATA = {
       subnet:"10.10.20.0/24", color:"#10B981",
       bg:"rgba(16,185,129,0.08)", border:"rgba(16,185,129,0.2)", pipeSpeed:2.0,
       devices:[
-        { icon:"🪟", name:"Amazon-PC",        ip:"10.10.20.250 · Win + NordVPN",   pill:"VM",   pc:"pill-vm"   },
-        { icon:"🪟", name:"Win-PC11",         ip:"10.10.20.x · Power BI",          pill:"VM",   pc:"pill-vm"   },
+        { icon:"🪟", name:"Amazon-PC",        ip:"10.10.20.93 · Win + NordVPN",    pill:"VM",   pc:"pill-vm"   },
+        { icon:"🪟", name:"Media WinPC",      ip:"10.10.20.250 · Power BI",        pill:"VM",   pc:"pill-vm"   },
         { icon:"🎬", name:"Jellyfin",         ip:"10.10.20.2 · Media Server",      pill:"SVC",  pc:"pill-svc"  },
         { icon:"📱", name:"Personal Devices", ip:"DHCP · Phones, tablets, Mac",    pill:"WIFI", pc:"pill-phys" }
       ]
@@ -98,6 +99,7 @@ const DATA = {
       bg:"rgba(236,72,153,0.08)", border:"rgba(236,72,153,0.2)", pipeSpeed:2.5,
       devices:[
         { icon:"💻", name:"WIN-SON-PC",   ip:"10.10.60.50 · Dev workstation (JJ)", pill:"VM",  pc:"pill-vm" },
+        { icon:"🎮", name:"Win-Son-GPU",  ip:"10.10.60.51 · GPU workstation (JJ)", pill:"GPU", pc:"pill-gpu" },
         { icon:"🤖", name:"ai-agent-lab", ip:"In progress · Docker",
           pill:"WIP", pillColor:"rgba(236,72,153,0.12)", pillText:"#F9A8D4", dim:true }
       ]
