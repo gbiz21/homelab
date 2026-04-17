@@ -48,11 +48,12 @@
 | VM ID | Name | OS | CPU | RAM | Storage | IP | VLAN | Purpose | Status |
 |---|---|---|---|---|---|---|---|---|---|
 | 100 | Ubuntu-Media | Linux | 4 | 6 GB | 300 GB | 10.10.10.69 | Mgmt (10) | Video transcription | ✅ Active |
-| 102 | Amazon-PC | Windows | 4 | 12 GB | 200 GB | 10.10.20.250 | Home (20) | Amazon shopping + NordVPN | ✅ Active |
+| 102 | Amazon-PC | Windows | 4 | 12 GB | 200 GB | 10.10.10.51 | Mgmt (10) | Amazon shopping + NordVPN | ✅ Active |
 | 104 | PBS | Linux | 4 | 6 GB | 64 GB | 10.10.10.50 | Mgmt (10) | Proxmox Backup Server | ✅ Active |
 | 105 | Traefik-Proxy | Linux | 2 | 2 GB | 32 GB | 10.10.10.6 | Mgmt (10) | Reverse proxy – internal DNS routing | ✅ Active |
-| 106 | Win-PC11 | Windows | TBD | TBD | TBD | 10.10.20.x | Home (20) | Windows 11 – Power BI + Windows tools | ✅ Active |
+| 106 | Media WinPC | Windows | TBD | TBD | TBD | 10.10.20.250 | Home (20) | Windows 11 – Power BI + Windows tools | ✅ Active |
 | — | WIN-SON-PC | Windows | 4 | 12 GB | 100 GB | 10.10.60.50 | Dev (60) | Dev workstation for JJ | ✅ Active |
+| 109 | Win-Son-GPU | Windows | TBD | TBD | TBD | 10.10.60.51 | Dev (60) | GPU workstation for JJ | ✅ Active |
 
 > ⚠️ VM 106 Win-PC11 IP needs to be confirmed and updated.
 
@@ -140,7 +141,6 @@
 
 ## <a id="open-items"></a> 📝 Open Items
 
-- [ ] Confirm and update VM 106 Win-PC11 IP address
 - [ ] Confirm labctl script host location
 - [ ] Migrate Unifi Switch mgmt IP to 10.10.10.x range
 - [ ] Set up Docker on dedicated VM
