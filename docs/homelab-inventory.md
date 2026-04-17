@@ -54,8 +54,7 @@
 | 106 | Media WinPC | Windows | TBD | TBD | TBD | 10.10.20.250 | Home (20) | Windows 11 – Power BI + Windows tools | ✅ Active |
 | — | WIN-SON-PC | Windows | 4 | 12 GB | 100 GB | 10.10.60.50 | Dev (60) | Dev workstation for JJ | ✅ Active |
 | 109 | Win-Son-GPU | Windows | TBD | TBD | TBD | 10.10.60.51 | Dev (60) | GPU workstation for JJ | ✅ Active |
-
-> ⚠️ VM 106 Win-PC11 IP needs to be confirmed and updated.
+| TBD | mgmt-server | Linux | TBD | TBD | TBD | 10.10.10.71 | Mgmt (10) | Lab platform + labctl host | ✅ Active |
 
 ---
 
@@ -96,10 +95,8 @@
 
 | Name | Type | Language | Purpose | Location | Status |
 |---|---|---|---|---|---|
-| labctl | CLI Script | Python | Infrastructure automation | TBD – confirm host VM | ✅ Active |
-| services.yaml | Config | YAML | Service definitions | TBD – confirm location | ✅ Active |
-
-> ⚠️ labctl host location needs to be confirmed and documented.
+| labctl | CLI Script | Python | Infrastructure automation | mgmt-server: ~/lab/repos/lab-platform/src/labctl.py | ✅ Active |
+| services.yaml | Config | YAML | Service definitions | mgmt-server: ~/lab/repos/lab-platform/ | ✅ Active |
 
 ---
 
@@ -141,7 +138,7 @@
 
 ## <a id="open-items"></a> 📝 Open Items
 
-- [ ] Confirm labctl script host location
+- [x] ~~Confirm labctl script host location~~ — mgmt-server @ 10.10.10.71
 - [ ] Migrate Unifi Switch mgmt IP to 10.10.10.x range
 - [ ] Set up Docker on dedicated VM
 - [ ] Move Unifi Controller from 192.168.1.x to mgmt VLAN
