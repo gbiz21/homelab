@@ -51,10 +51,9 @@
 | 102 | Amazon-PC | Windows | 4 | 12 GB | 200 GB | 10.10.20.93 | Home (20) | Amazon shopping + NordVPN | ✅ Active |
 | 104 | PBS | Linux | 4 | 6 GB | 64 GB | 10.10.10.50 | Mgmt (10) | Proxmox Backup Server | ✅ Active |
 | 105 | Traefik-Proxy | Linux | 2 | 2 GB | 32 GB | 10.10.10.6 | Mgmt (10) | Reverse proxy – internal DNS routing | ✅ Active |
-| 106 | Media WinPC | Windows | TBD | TBD | TBD | 10.10.20.250 | Home (20) | Windows 11 – Power BI + Windows tools | ✅ Active |
-| — | WIN-SON-PC | Windows | 4 | 12 GB | 100 GB | 10.10.60.50 | Dev (60) | Dev workstation for JJ | ✅ Active |
-| 109 | Win-Son-GPU | Windows | TBD | TBD | TBD | 10.10.60.51 | Dev (60) | GPU workstation for JJ | ✅ Active |
-| TBD | mgmt-server | Linux | TBD | TBD | TBD | 10.10.10.71 | Mgmt (10) | Lab platform + labctl host | ✅ Active |
+| 106 | Media WinPC | Windows | 6 | 12 GB | 200 GB | 10.10.20.250 | Home (20) | Windows 11 – Power BI + Windows tools | ✅ Active |
+| 109 | Win-Son-GPU | Windows | 8 | 16 GB | 250 GB | 10.10.60.51 | Dev (60) | GPU workstation for JJ | ✅ Active |
+| TBD | mgmt-server | Linux | 2 | 4 GB | 60 GB | 10.10.10.71 | Mgmt (10) | Lab platform + labctl host | ✅ Active |
 
 ---
 
