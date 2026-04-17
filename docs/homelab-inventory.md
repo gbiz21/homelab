@@ -5,19 +5,19 @@
 ---
 
 ## 📋 Table of Contents
-- [Network](#-network)
-- [Compute](#-compute)
-- [Storage](#-storage)
-- [Platform & Services](#-platform--services)
-- [Cloud](#-cloud)
-- [Automation](#-automation)
-- [Identity](#-identity)
-- [VLAN Map](#-vlan-map)
-- [Docker Containers](#-docker-containers)
+- [Network](#network)
+- [Compute](#compute)
+- [Storage](#storage)
+- [Platform & Services](#platform--services)
+- [Cloud](#cloud)
+- [Automation](#automation)
+- [Identity](#identity)
+- [VLAN Map](#vlan-map)
+- [Docker Containers](#docker-containers)
 
 ---
 
-## 🌐 Network
+## <a id="network"></a> 🌐 Network
 
 | System | Type | Purpose | Hostname / IP | Status |
 |---|---|---|---|---|
@@ -32,7 +32,7 @@
 
 ---
 
-## 💻 Compute
+## <a id="compute"></a> 💻 Compute
 
 ### Physical Nodes
 
@@ -58,7 +58,7 @@
 
 ---
 
-## 🗄️ Storage
+## <a id="storage"></a> 🗄️ Storage
 
 | System | Type | CPU | RAM | Purpose | IP | Status |
 |---|---|---|---|---|---|---|
@@ -68,7 +68,7 @@
 
 ---
 
-## ⚙️ Platform & Services
+## <a id="platform--services"></a> ⚙️ Platform & Services
 
 | Service | Type | Host | IP | Purpose | Status |
 |---|---|---|---|---|---|
@@ -79,7 +79,7 @@
 
 ---
 
-## ☁️ Cloud
+## <a id="cloud"></a> ☁️ Cloud
 
 | Service | Provider | Purpose | Environment | Status |
 |---|---|---|---|---|
@@ -91,7 +91,7 @@
 
 ---
 
-## 🤖 Automation
+## <a id="automation"></a> 🤖 Automation
 
 | Name | Type | Language | Purpose | Location | Status |
 |---|---|---|---|---|---|
@@ -102,7 +102,7 @@
 
 ---
 
-## 🔑 Identity
+## <a id="identity"></a> 🔑 Identity
 
 | Tool | Type | Purpose | Status |
 |---|---|---|---|
@@ -113,7 +113,7 @@
 
 ---
 
-## 🗺️ VLAN Map
+## <a id="vlan-map"></a> 🗺️ VLAN Map
 
 | VLAN | Name | Subnet | Gateway | Purpose | Inter-VLAN Access |
 |---|---|---|---|---|---|
@@ -127,7 +127,7 @@
 
 ---
 
-## 🐳 Docker Containers
+## <a id="docker-containers"></a> 🐳 Docker Containers
 
 | Container ID | Image | Name | Host | Ports | Purpose | Status |
 |---|---|---|---|---|---|---|
@@ -138,7 +138,7 @@
 
 ---
 
-## 📝 Open Items
+## <a id="open-items"></a> 📝 Open Items
 
 - [ ] Confirm and update VM 106 Win-PC11 IP address
 - [ ] Confirm labctl script host location
