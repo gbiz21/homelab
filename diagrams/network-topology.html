@@ -35,9 +35,10 @@ const DATA = {
   /* Core row — edit freely */
   core: [
     { id:"n-fw",  icon:"🛡️", name:"OPNsense",       ip:"10.10.10.1",    tag:"Firewall — Router — VLAN",    color:"#3B82F6", glow:true  },
-    { id:"n-sw",  icon:"🔀", name:"Unifi Switch",   ip:"192.168.1.51",  tag:"USW-16-PoE — Managed",        color:"#3B82F6", glow:false },
-    { id:"n-ap",  icon:"📶", name:"Unifi AP",       ip:"192.168.1.53",  tag:"Wireless Access Point",       color:"#10B981", glow:false },
-    { id:"n-rpi", icon:"🍓", name:"Raspberry Pi 5", ip:"192.168.1.50",  tag:"Unifi Controller — Twingate", color:"#3B82F6", glow:false }
+    { id:"n-sw",  icon:"🔀", name:"USW-16-PoE",     ip:"10.10.10.51",   tag:"Managed Switch — 16 port PoE", color:"#3B82F6", glow:false },
+    { id:"n-ap1", icon:"📶", name:"U6 Pro",         ip:"10.10.10.53",   tag:"WiFi AP — Home, Guest, IoT",  color:"#10B981", glow:false },
+    { id:"n-ap2", icon:"📶", name:"RAXE500",        ip:"10.10.20.60",   tag:"WiFi AP — Home network",      color:"#10B981", glow:false },
+    { id:"n-rpi", icon:"🍓", name:"Raspberry Pi 5", ip:"10.10.10.52",   tag:"Unifi Controller — Twingate", color:"#3B82F6", glow:false }
   ],
 
   /* VLAN segments */
@@ -53,7 +54,9 @@ const DATA = {
         { icon:"💾", name:"PBS",          ip:"10.10.10.50 · Proxmox Backup",       pill:"VM",     pc:"pill-vm"     },
         { icon:"🔄", name:"Traefik Proxy",ip:"10.10.10.6 · Reverse Proxy",        pill:"DOCKER", pc:"pill-docker" },
         { icon:"🗄️", name:"HOME-NAS",     ip:"10.10.10.13 · Synology DS923+",     pill:"NAS",    pc:"pill-nas"    },
-        { icon:"🖥️", name:"mgmt-server",  ip:"10.10.10.71 · Lab platform + labctl", pill:"VM",   pc:"pill-vm"     }
+        { icon:"🖥️", name:"mgmt-server",  ip:"10.10.10.71 · Infra automation",    pill:"VM",     pc:"pill-vm"     },
+        { icon:"🐘", name:"pgsrv01",      ip:"10.10.10.72 · Database server",     pill:"VM",     pc:"pill-vm"     },
+        { icon:"🎥", name:"Ubuntu-Media", ip:"10.10.10.69 · Video transcription", pill:"VM",     pc:"pill-vm"     }
       ]
     },
     {
@@ -61,9 +64,9 @@ const DATA = {
       subnet:"10.10.20.0/24", color:"#10B981",
       bg:"rgba(16,185,129,0.08)", border:"rgba(16,185,129,0.2)", pipeSpeed:2.0,
       devices:[
-        { icon:"🪟", name:"Amazon-PC",        ip:"10.10.20.93 · Win + NordVPN",    pill:"VM",   pc:"pill-vm"   },
+        { icon:"🪟", name:"Amazon-PC",        ip:"10.10.20.93 · General purpose",  pill:"VM",   pc:"pill-vm"   },
         { icon:"🪟", name:"Media WinPC",      ip:"10.10.20.250 · Power BI",        pill:"VM",   pc:"pill-vm"   },
-        { icon:"🎬", name:"Jellyfin",         ip:"10.10.20.2 · Media Server",      pill:"SVC",  pc:"pill-svc"  },
+        { icon:"🎬", name:"Jellyfin",         ip:"10.10.20.37 · Media Server",     pill:"SVC",  pc:"pill-svc"  },
         { icon:"📱", name:"Personal Devices", ip:"DHCP · Phones, tablets, Mac",    pill:"WIFI", pc:"pill-phys" }
       ]
     },
@@ -98,10 +101,7 @@ const DATA = {
       subnet:"10.10.60.0/24", color:"#EC4899",
       bg:"rgba(236,72,153,0.08)", border:"rgba(236,72,153,0.2)", pipeSpeed:2.5,
       devices:[
-        { icon:"💻", name:"WIN-SON-PC",   ip:"10.10.60.50 · Dev workstation (JJ)", pill:"VM",  pc:"pill-vm" },
-        { icon:"🎮", name:"Win-Son-GPU",  ip:"10.10.60.51 · GPU workstation (JJ)", pill:"GPU", pc:"pill-gpu" },
-        { icon:"🤖", name:"ai-agent-lab", ip:"In progress · Docker",
-          pill:"WIP", pillColor:"rgba(236,72,153,0.12)", pillText:"#F9A8D4", dim:true }
+        { icon:"🎮", name:"Win-Son-GPU",  ip:"10.10.60.51 · GPU workstation (JJ)", pill:"GPU", pc:"pill-gpu" }
       ]
     }
   ],
