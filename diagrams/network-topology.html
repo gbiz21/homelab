@@ -92,7 +92,7 @@ body{background:var(--bg);color:var(--t1);font-family:'Space Grotesk',sans-serif
 </div>
 <script>
 function ico(file,fb){if(!file)return fb;return '<img src="icons/'+file+'" alt="" style="width:20px;height:20px;object-fit:contain;vertical-align:middle" onerror="this.outerHTML=\''+fb+'\'">';}
-function icoLg(file,fb){if(!file)return fb;return '<img src="icons/'+file+'" alt="" style="width:36px;height:36px;object-fit:contain" onerror="this.outerHTML=\''+fb+'\'">';}
+function icoLg(file,fb){if(!file)return fb;return '<img src="icons/'+file+'" alt="" style="max-height:36px;width:auto;max-width:48px;object-fit:contain" onerror="this.outerHTML=\''+fb+'\'">';}
 
 const DATA={
 site:{name:'bkre8tive Homelab',subtitle:'Network Topology',updated:'2026-04-17'},
@@ -107,11 +107,11 @@ core:[
 vlans:[
 {id:'v10',name:'Mgmt Infrastructure',tag:'VLAN 10',subnet:'10.10.10.0/24',color:'#14B8A6',bg:'rgba(20,184,166,0.08)',border:'rgba(20,184,166,0.2)',pipeSpeed:1.5,
 devices:[
-{name:'prox-main',ip:'10.10.10.2 · Ryzen AI 9 HX 370',icon:'🖥️',pill:'PHYS',pc:'pill-phys'},
-{name:'prox-node',ip:'10.10.10.3 · Intel i9-13900HK',icon:'🖥️',pill:'PHYS',pc:'pill-phys'},
-{name:'prox-alien',ip:'10.10.10.4 · i9-12900H + RTX 3080',icon:'🎮',pill:'GPU',pc:'pill-gpu'},
+{name:'prox-main',ip:'10.10.10.2 · Ryzen AI 9 HX 370',icon:ico('proxmox.png','🖥️'),pill:'PHYS',pc:'pill-phys'},
+{name:'prox-node',ip:'10.10.10.3 · Intel i9-13900HK',icon:ico('proxmox.png','🖥️'),pill:'PHYS',pc:'pill-phys'},
+{name:'prox-alien',ip:'10.10.10.4 · i9-12900H + RTX 3080',icon:ico('proxmox.png','🎮'),pill:'GPU',pc:'pill-gpu'},
 {name:'Traefik Proxy',ip:'10.10.10.6 · Reverse Proxy',icon:ico('ubuntu.png','🔄'),pill:'DOCKER',pc:'pill-docker'},
-{name:'HOME-NAS',ip:'10.10.10.13 · Synology DS923+',icon:'🗄️',pill:'NAS',pc:'pill-nas'},
+{name:'HOME-NAS',ip:'10.10.10.13 · Synology DS923+',icon:ico('nas.png','🗄️'),pill:'NAS',pc:'pill-nas'},
 {name:'PBS',ip:'10.10.10.50 · Proxmox Backup',icon:ico('ubuntu.png','💾'),pill:'VM',pc:'pill-vm'},
 {name:'Ubuntu-Media',ip:'10.10.10.69 · Video transcription',icon:ico('ubuntu.png','🐧'),pill:'VM',pc:'pill-vm'},
 {name:'mgmt-server',ip:'10.10.10.71 · labctl + lab-platform',icon:ico('ubuntu.png','🖥️'),pill:'VM',pc:'pill-vm'},
