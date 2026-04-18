@@ -214,7 +214,7 @@ pipe(M.x,M.b,FW.x,FW.t,'#3B82F6',1.5,true);
 if(SW)pipe(FW.r,FW.y,SW.l,SW.y,'#3B82F6',1.8,false);
 if(SW&&AP)pipe(SW.r,SW.y,AP.l,AP.y,'#10B981',2.2,false);
 if(AP&&RP)pipe(AP.r,AP.y,RP.l,RP.y,'#3B82F6',2.8,false);
-DATA.vlans.forEach(function(v){var vn=rc(v.id);if(!vn)return;var src=['v10','v30'].indexOf(v.id)>=0?FW:SW;if(!src)return;pipe(src.x,src.b,vn.x,vn.t,v.color,v.pipeSpeed,false);});
+DATA.vlans.forEach(function(v){var vn=rc(v.id);if(!vn)return;var src=SW;if(!src)return;pipe(src.x,src.b,vn.x,vn.t,v.color,v.pipeSpeed,false);});
 var offsets=[-75,-25,25,75];
 DATA.cloud.forEach(function(c,i){var cn=rc(c.id);if(!cn||!FW)return;pipe(FW.x+(offsets[i]||0),FW.b,cn.x,cn.t,'#64748B',4+i*0.4,false);});
 }
