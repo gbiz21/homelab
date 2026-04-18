@@ -216,7 +216,7 @@ if(SW&&AP)pipe(SW.r,SW.y,AP.l,AP.y,'#10B981',2.2,false);
 if(AP&&RP)pipe(AP.r,AP.y,RP.l,RP.y,'#3B82F6',2.8,false);
 DATA.vlans.forEach(function(v){var vn=rc(v.id);if(!vn)return;var src=SW;if(!src)return;pipe(src.x,src.b,vn.x,vn.t,v.color,v.pipeSpeed,false);});
 var offsets=[-75,-25,25,75];
-DATA.cloud.forEach(function(c,i){var cn=rc(c.id);if(!cn||!FW)return;pipe(FW.x+(offsets[i]||0),FW.b,cn.x,cn.t,'#64748B',4+i*0.4,false);});
+DATA.cloud.forEach(function(c,i){var cn=rc(c.id);if(!cn||!I)return;pipe(I.x+(offsets[i]||0),I.b,cn.x,cn.t,'#64748B',5+i*0.5,false);});
 }
 function resize(){var r=dw.getBoundingClientRect();svg.setAttribute('width',r.width);svg.setAttribute('height',r.height);svg.style.cssText='width:'+r.width+'px;height:'+r.height+'px';}
 function init(){resize();draw();}
