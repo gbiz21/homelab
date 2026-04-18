@@ -99,7 +99,7 @@ site:{name:'bkre8tive Homelab',subtitle:'Network Topology',updated:'2026-04-17'}
 internet:{name:'Internet',ip:'Spectrum — 1 Gbps',icon:'🌐'},
 modem:{name:'Spectrum Modem',ip:'WAN Gateway',tag:'WAN GATEWAY',icon:'📡'},
 core:[
-{id:'n-fw',name:'OPNsense',ip:'10.10.10.1',tag:'Firewall — Router — VLAN',color:'#3B82F6',glow:true,iconFile:null,icon:'🛡️'},
+{id:'n-fw',name:'OPNsense',ip:'10.10.10.1',tag:'Firewall — Router — VLAN',color:'#3B82F6',glow:true,iconFile:'opnsense.png',icon:'🛡️'},
 {id:'n-sw',name:'USW-16-PoE',ip:'10.10.10.51',tag:'Managed Switch — 16 Port',color:'#3B82F6',glow:false,iconFile:'ubiquiti.png',icon:'🔀'},
 {id:'n-ap',name:'U6 Pro',ip:'10.10.10.53',tag:'WiFi Access Point',color:'#10B981',glow:false,iconFile:'ubiquiti.png',icon:'📶'},
 {id:'n-rpi',name:'Raspberry Pi 5',ip:'10.10.10.52',tag:'Unifi Controller — Twingate',color:'#3B82F6',glow:false,iconFile:'raspberry-pi.png',icon:'🍓'}
@@ -147,10 +147,10 @@ devices:[
 ]}
 ],
 cloud:[
-{id:'c-azure',name:'Azure',tag:'AZ-104 Lab',icon:'☁️'},
-{id:'c-twingate',name:'Twingate',tag:'Zero-Trust VPN',icon:'🔒'},
-{id:'c-gcp',name:'Google Cloud',tag:'RustDesk Relay',icon:'🌩️'},
-{id:'c-intune',name:'Intune',tag:'MDM · Lab',icon:'🖥️'}
+{id:'c-azure',name:'Azure',tag:'AZ-104 Lab',iconFile:'azure.png',icon:'☁️'},
+{id:'c-twingate',name:'Twingate',tag:'Zero-Trust VPN',iconFile:'twingate.png',icon:'🔒'},
+{id:'c-gcp',name:'Google Cloud',tag:'RustDesk Relay',iconFile:'gcp.png',icon:'🌩️'},
+{id:'c-intune',name:'Intune',tag:'MDM · Lab',iconFile:'intune.png',icon:'🖥️'}
 ]};
 
 document.getElementById('hdr').innerHTML='<div><div class="h-brand">'+DATA.site.name.replace('bkre8tive','bkre8<span>tive</span>')+'</div><div class="h-sub"><div class="dot-live"></div>'+DATA.site.subtitle+' — Last updated '+DATA.site.updated+'</div></div><div class="h-badges"><span class="badge">OPNsense</span><span class="badge">Proxmox Cluster</span><span class="badge">'+DATA.vlans.length+' VLANs</span></div>';
@@ -178,7 +178,7 @@ return '<div class="dev" style="'+st+'"><div class="dev-ico">'+d.icon+'</div><di
 return '<div class="vlan-card" id="'+v.id+'"><div class="vlan-head" style="background:'+v.bg+';color:'+v.color+';border-bottom:1px solid '+v.border+'"><span>●</span>'+v.name+'<span class="vtag">'+v.tag+'</span><span class="vsub">'+v.subnet+'</span></div><div class="vlan-body">'+ds+'</div></div>';
 }).join('');
 
-document.getElementById('cloud-row').innerHTML=DATA.cloud.map(function(c){return '<div class="cloud-node" id="'+c.id+'"><div class="node-ico">'+c.icon+'</div><div class="node-name">'+c.name+'</div><div class="node-tag">'+c.tag+'</div></div>';}).join('');
+document.getElementById('cloud-row').innerHTML=DATA.cloud.map(function(c){var ci=c.iconFile?icoLg(c.iconFile,c.icon):c.icon;return '<div class="cloud-node" id="'+c.id+'"><div class="node-ico">'+ci+'</div><div class="node-name">'+c.name+'</div><div class="node-tag">'+c.tag+'</div></div>';}).join('');
 
 document.getElementById('ftr').innerHTML='Save to: <span>01_Homelab/04_Diagrams/network-topology.html</span> &middot; '+DATA.site.updated+' &middot; '+DATA.site.name;
 
